@@ -78,7 +78,7 @@ def prepare_train_valid_data(train_data, valid_data, limit, test_size):
 
     else:
         print("Valid data exists!")
-        training = prepare_data(limit, train_data, sep='\t', quoting=csv.QUOTE_NONE)
+        training = prepare_data(limit, train_data)
         validation = prepare_data(limit, valid_data)
 
         print("Training: ({a}, {b})".format(
