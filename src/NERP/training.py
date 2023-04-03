@@ -67,7 +67,7 @@ def do_train(archi, device, training, validation, testing, tag_scheme, o_tag_cr,
     # evaluate on test set
     c_reports = [
         model.evaluate_performance(
-            t, return_accuracy=return_accuracy
+            t, return_accuracy=return_accuracy, batch_size=validation_batch_size
         ) for t in testing
     ]
     
@@ -134,12 +134,8 @@ def training_pipeline(archi,
                                                "learning_rate": 0.0001,
                                                "fixed_seed": 42},
                       tokenizer_parameters: dict = {"do_lower_case": True},
-<<<<<<< HEAD
-                      train_data_paramters: dict = {"train_sep": '\t', "train_quoting": False},
-=======
                       train_data_parameters: dict = {"train_sep": ',', "train_quoting": True, "train_shuffle": True},
                       validation_batch_size: int = 8,
->>>>>>> origin/v1.0.2.2
                       max_len: int = 128,
                       dropout: float = 0.1,
                       kfold: int = 0,
@@ -229,13 +225,8 @@ def training_pipeline(archi,
             write_accuracy_file(model_dir, results)
 
         else:
-<<<<<<< HEAD
-            training, validation = prepare_train_valid_data(train_data, valid_data, limit, test_size, train_data_parameters=train_data_parameters)
-            testing = prepare_test_data(test_data, limit)
-=======
             training, validation = prepare_train_valid_data(train_data, valid_data, limit, test_size, train_data_parameters=train_data_parameters, fixed_seed=hyperparameters["fixed_seed"])
             testing = [prepare_test_data(t, limit) for t in test_data]
->>>>>>> origin/v1.0.2.2
             
             print("Training {model} without K-Fold!".format(model=pretrained))
             do_train(archi, device, training, validation, testing, tag_scheme, o_tag_cr, hyperparameters, tokenizer_parameters, validation_batch_size, max_len,
